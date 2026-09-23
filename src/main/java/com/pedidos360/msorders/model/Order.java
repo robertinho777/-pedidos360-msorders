@@ -39,6 +39,15 @@ public class Order {
         if (this.status == null) {
             this.status = OrderStatus.CREADO;
         }
+        if (this.customerId == null) {
+            this.customerId = 1L;
+        }
+        if (this.total == null) {
+            this.total = items.stream()
+                    .map(i -> (i.getUnitPrice() != null ? i.getUnitPrice() : BigDecimal.ZERO)
+                            .multiply(BigDecimal.valueOf(i.getQuantity() != null ? i.getQuantity() : 1)))
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        }
     }
 
     public Long getId() {

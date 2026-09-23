@@ -20,7 +20,7 @@ public class CatalogClient {
     public void decreaseStock(Long productId, Integer quantity) {
         restClient.post()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/api/products/{id}/stock/decrease")
+                        .path("/api/catalog/products/{id}/stock/decrease")
                         .queryParam("quantity", quantity)
                         .build(productId))
                 .retrieve()

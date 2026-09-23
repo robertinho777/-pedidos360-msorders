@@ -20,6 +20,16 @@ public class OrderItem {
     @Column(nullable = false)
     private BigDecimal unitPrice;
 
+    @PrePersist
+    protected void onCreate() {
+        if (this.quantity == null) {
+            this.quantity = 1;
+        }
+        if (this.unitPrice == null) {
+            this.unitPrice = BigDecimal.ZERO;
+        }
+    }
+
     public Long getId() {
         return id;
     }
