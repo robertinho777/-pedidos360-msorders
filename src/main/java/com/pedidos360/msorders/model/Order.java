@@ -17,6 +17,12 @@ public class Order {
     @Column(nullable = false)
     private Long customerId;
 
+    @Column(name = "customer_email")
+    private String customerEmail;
+
+    @Column(name = "customer_name")
+    private String customerName;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OrderStatus status;
@@ -64,6 +70,22 @@ public class Order {
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public OrderStatus getStatus() {

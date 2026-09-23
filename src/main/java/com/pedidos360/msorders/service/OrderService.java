@@ -39,6 +39,13 @@ public class OrderService {
     }
 
     public List<Order> getOrders(Long customerId) {
+        return getOrders(customerId, null);
+    }
+
+    public List<Order> getOrders(Long customerId, String customerEmail) {
+        if (customerEmail != null && !customerEmail.isBlank()) {
+            return orderRepository.findByCustomerEmailIgnoreCase(customerEmail);
+        }
         if (customerId != null) {
             return orderRepository.findByCustomerId(customerId);
         }

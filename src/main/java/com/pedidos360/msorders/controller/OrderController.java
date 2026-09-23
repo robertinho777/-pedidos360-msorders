@@ -21,13 +21,26 @@ public class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Order createOrder(@RequestBody Order order) {
+    public Order createOrder(
+            @RequestBody Order order,
+            @RequestHeader(value = "X-Customer-Email", required = false) String customerEmailHeader,
+            @RequestHeader(value = "X-Customer-Name", required = false) String customerNameHeader) {
+        if ((order.getCustomerEmail() == null || order.getCustomerEmail().isBlank()) && customerEmailHeader != null) {
+            order.setCustomerEmail(customerEmailHeader);
+        }
+        if ((order.getCustomerName() == null || order.getCustomerName().isBlank()) && customerNameHeader != null) {
+            order.setCustomerName(customerNameHeader);
+        }
         return orderService.createOrder(order);
     }
 
     @GetMapping
-    public List<Order> getOrders(@RequestHeader(value = "X-Customer-Id", required = false) Long customerId) {
-        return orderService.getOrders(customerId);
+    public List<Order> getOrders(
+            @RequestHeader(value = "X-Customer-Id", required = false) Long customerId,
+            @RequestParam(value = "customerEmail", required = false) String customerEmail,
+            @RequestHeader(value = "X-Customer-Email", required = false) String customerEmailHeader) {
+        String email = customerEmail != null && !customerEmail.isBlank() ? customerEmail : customerEmailHeader;
+        return orderService.getOrders(customerId, email);
     }
 
     @GetMapping("/{id}")

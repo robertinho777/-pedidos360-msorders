@@ -26,6 +26,8 @@ public class OrdersDataInitializer implements CommandLineRunner {
             // Pedido 1: CREADO
             Order o1 = new Order();
             o1.setCustomerId(1L);
+            o1.setCustomerEmail("admin@testdsy.onmicrosoft.com");
+            o1.setCustomerName("Administrador Sistema");
             o1.setStatus(OrderStatus.CREADO);
             o1.setCreatedAt(LocalDateTime.now().minusHours(2));
             o1.setTotal(new BigDecimal("129.98"));
@@ -45,6 +47,8 @@ public class OrdersDataInitializer implements CommandLineRunner {
             // Pedido 2: ACEPTADO
             Order o2 = new Order();
             o2.setCustomerId(1L);
+            o2.setCustomerEmail("cliente@testdsy.onmicrosoft.com");
+            o2.setCustomerName("Cliente Test");
             o2.setStatus(OrderStatus.ACEPTADO);
             o2.setCreatedAt(LocalDateTime.now().minusDays(1));
             o2.setTotal(new BigDecimal("299.99"));
